@@ -24,11 +24,14 @@ async function loadPosts() {
         posts.forEach(post => {
             const postElement = document.createElement('article');
             postElement.className = 'post-summary';
+            // The HTML structure is slightly updated to match the new CSS card design
             postElement.innerHTML = `
-                <h2><a href="post.html?id=${post.id}">${post.title}</a></h2>
-                <p class="meta">By ${post.author} on ${post.date}</p>
-                <p>${post.summary}</p>
-                <a href="post.html?id=${post.id}" class="read-more">Read More →</a>
+                <div class="post-summary-content">
+                    <h2><a href="post.html?id=${post.id}">${post.title}</a></h2>
+                    <span class="meta">By ${post.author} on ${post.date}</span>
+                    <p>${post.summary}</p>
+                    <a href="post.html?id=${post.id}" class="read-more">Read More →</a>
+                </div>
             `;
             postsListContainer.appendChild(postElement);
         });
@@ -50,7 +53,7 @@ async function loadSinglePost() {
         const post = posts.find(p => p.id === postId);
 
         if (post) {
-            // **NEW:** Define the image URL: use post-specific, or fall back to a default image.
+            // **UPDATED:** The default/fallback image URL is now your new banner.
             const postImageUrl = post.imageUrl || "https://visernic.com/wp-content/uploads/2025/03/visernic-1.png";
 
             // --- 1. DYNAMICALLY UPDATE SEO META TAGS ---
@@ -58,10 +61,10 @@ async function loadSinglePost() {
             updateMetaTag('meta[name="description"]', 'content', post.summary);
             updateMetaTag('meta[property="og:title"]', 'content', post.title);
             updateMetaTag('meta[property="og:description"]', 'content', post.summary);
-            updateMetaTag('meta[property="og:image"]', 'content', postImageUrl); // Use the new image URL
+            updateMetaTag('meta[property="og:image"]', 'content', postImageUrl);
             updateMetaTag('meta[property="twitter:title"]', 'content', post.title);
             updateMetaTag('meta[property="twitter:description"]', 'content', post.summary);
-            updateMetaTag('meta[property="twitter:image"]', 'content', postImageUrl); // Use the new image URL
+            updateMetaTag('meta[property="twitter:image"]', 'content', postImageUrl);
             const canonicalUrl = `${window.location.origin}${window.location.pathname}?id=${post.id}`;
             updateMetaTag('meta[property="og:url"]', 'content', canonicalUrl);
 
@@ -77,7 +80,7 @@ async function loadSinglePost() {
                 "headline": post.title,
                 "name": post.title,
                 "description": post.summary,
-                "image": postImageUrl, // Use the new image URL here as well
+                "image": postImageUrl,
                 "author": { "@type": "Person", "name": post.author },
                 "publisher": {
                     "@type": "Organization", "name": "My Blog",
