@@ -1,125 +1,176 @@
-/* General Styling */
+/* --- New Google Font --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/* --- New Color Palette & Basic Setup --- */
 :root {
-    --primary-color: #3498db;
-    --text-color: #333;
-    --light-text-color: #777;
-    --bg-color: #f4f7f6;
-    --container-bg: #fff;
-    --border-color: #eaeaea;
+    --primary-color: #2c3e50; /* Deep Blue */
+    --secondary-color: #3498db; /* Bright Blue */
+    --accent-color: #e74c3c; /* Red Accent */
+    --text-color: #34495e; /* Dark Gray */
+    --light-text-color: #7f8c8d;
+    --bg-color: #ecf0f1; /* Light Gray BG */
+    --container-bg: #ffffff;
+    --border-color: #bdc3c7;
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     background-color: var(--bg-color);
     color: var(--text-color);
-    line-height: 1.8;
+    line-height: 1.7;
 }
 
-/* Header & Footer */
+/* --- Larger, Redesigned Header & Footer --- */
 header {
     background: var(--primary-color);
     color: white;
     text-align: center;
-    padding: 2rem 1rem;
-    margin-bottom: 2rem;
+    padding: 3rem 1rem; /* Increased padding */
+    border-bottom: 5px solid var(--secondary-color);
 }
-header h1 { margin: 0; font-size: 2.8rem; }
+header h1 {
+    margin: 0;
+    font-size: 3.5rem;
+    font-weight: 700;
+}
+header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
 footer {
     text-align: center;
-    padding: 1.5rem;
-    margin-top: 2rem;
-    background: #333;
+    padding: 2.5rem 1rem; /* Increased padding */
+    margin-top: 3rem;
+    background: var(--primary-color);
     color: white;
-    font-size: 0.9rem;
+    font-size: 1rem;
 }
 
-/* Main Content */
+/* --- Main Content Layout --- */
 main {
-    max-width: 800px;
+    max-width: 850px;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 2rem 1.5rem;
 }
 
-/* Homepage Post List */
-#posts-list-container .post-summary {
+/* --- Modern Card Design for Homepage --- */
+#posts-list-container {
+    display: grid;
+    gap: 2rem;
+}
+.post-summary {
     background: var(--container-bg);
-    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.post-summary:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+.post-summary-content {
     padding: 1.5rem 2rem;
-    margin-bottom: 1.5rem;
-    border-radius: 8px;
-    transition: box-shadow 0.3s ease;
 }
-#posts-list-container .post-summary:hover {
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-}
-.post-summary h2 { margin-top: 0; }
 .post-summary h2 a {
     color: var(--primary-color);
     text-decoration: none;
-    font-size: 1.8rem;
+    font-size: 1.9rem;
+    font-weight: 600;
 }
 .post-summary .meta {
     font-size: 0.9rem;
     color: var(--light-text-color);
     margin-bottom: 1rem;
+    display: block;
 }
 .read-more {
     display: inline-block;
     margin-top: 1rem;
-    color: var(--primary-color);
+    color: var(--secondary-color);
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+.read-more:hover {
+    border-color: var(--secondary-color);
 }
 
-/* Single Post Page */
+/* --- Single Post Page Design --- */
+.post-header {
+    background: var(--container-bg);
+    padding: 2rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+}
+#post-title {
+    margin: 0;
+    font-size: 2.8rem;
+    color: var(--primary-color);
+}
 #post-meta {
-    color: #ecf0f1;
+    color: var(--light-text-color);
     font-style: italic;
+    font-size: 1rem;
 }
 #post-content {
     background: var(--container-bg);
     padding: 2rem;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 1.1rem;
+    box-shadow: var(--shadow);
 }
-#post-content p { margin: 0 0 1rem 0; }
-#post-content h3 { color: var(--primary-color); margin-top: 2rem; }
-#post-content ul { list-style-type: disc; padding-left: 20px; }
-#post-content a { color: var(--primary-color); }
+#post-content h3 {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    margin-top: 2.5rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+#post-content a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+#post-content a:hover {
+    text-decoration: underline;
+}
 .back-to-home {
     display: block;
     text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     color: white;
     text-decoration: none;
     font-size: 1.1rem;
+    font-weight: 600;
 }
 
-/* Rating Section Styling */
+/* --- Rating Section --- */
 .rating-section {
     background: var(--container-bg);
-    border-top: 2px solid var(--border-color);
-    margin-top: -1.5rem; /* Connects with the post content */
+    margin-top: 2rem;
     padding: 1.5rem 2rem;
     text-align: center;
-    border-radius: 0 0 8px 8px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
 }
-.stars {
-    font-size: 2.5rem;
-    cursor: pointer;
+.stars { font-size: 2.5rem; cursor: pointer; }
+.star { color: #bdc3c7; transition: color 0.2s; }
+.stars:hover .star { color: #f39c12; }
+.star:hover ~ .star { color: #bdc3c7; }
+.rating-message { margin-top: 1rem; color: var(--secondary-color); font-weight: 600; }
+
+/* --- Responsive Design for All Devices --- */
+@media (max-width: 768px) {
+    header h1 { font-size: 2.5rem; }
+    #post-title { font-size: 2.2rem; }
 }
-.star {
-    color: #ccc;
-    transition: color 0.2s;
-}
-.stars:hover .star {
-    color: orange;
-}
-.star:hover ~ .star {
-    color: #ccc;
-}
-.rating-message {
-    margin-top: 1rem;
-    color: var(--primary-color);
-    font-weight: bold;
+@media (max-width: 480px) {
+    header h1 { font-size: 2rem; }
+    #post-title { font-size: 1.8rem; }
+    .post-summary h2 a { font-size: 1.5rem; }
+    .post-summary-content, #post-content, .post-header { padding: 1.5rem; }
 }
