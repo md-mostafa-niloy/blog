@@ -4,6 +4,7 @@
         "title": "My First Blog Post",
         "date": "October 15, 2025",
         "author": "MD Mostafa Niloy",
+        "imageUrl": "https://visernic.com/wp-content/uploads/2025/03/visernic-1.png",
         "summary": "This is the first post on my new blog. I'll be discussing web development, new technologies, and sharing my journey. Hope you enjoy it!",
         "content": "Welcome to the beginning of my blogging journey! In this blog, I'll be sharing my experiences with various aspects of web development, including **HTML, CSS, and JavaScript**.\n\nWe will also explore modern frameworks and libraries. My goal is to present complex topics in a simple and understandable way. Stay tuned!"
     },
@@ -12,6 +13,7 @@
         "title": "Why is JavaScript So Popular?",
         "date": "October 16, 2025",
         "author": "MD Mostafa Niloy",
+        "imageUrl": "https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?q=80&w=2070",
         "summary": "The importance of JavaScript in today's web world is immense. In this post, we'll explore why JavaScript is so popular among developers and what its future holds.",
         "content": "JavaScript is the language of the web. It's the only programming language that can run natively in the browser. Its vast ecosystem, server-side capabilities with **Node.js**, and powerful libraries/frameworks like **React, Vue, and Angular** make it unparalleled.\n\n### Key Reasons for its Popularity:\n\n* **Versatility:** Used for frontend, backend, mobile apps, and more.\n* **Community:** A massive and active developer community.\n* **Ease of Learning:** It has a relatively gentle learning curve for beginners."
     }
