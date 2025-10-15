@@ -50,42 +50,45 @@ async function loadSinglePost() {
         const post = posts.find(p => p.id === postId);
 
         if (post) {
+            // **NEW:** Define the image URL: use post-specific, or fall back to a default image.
+            const postImageUrl = post.imageUrl || "https://visernic.com/wp-content/uploads/2025/03/visernic-1.png";
+
             // --- 1. DYNAMICALLY UPDATE SEO META TAGS ---
             document.title = post.title;
             updateMetaTag('meta[name="description"]', 'content', post.summary);
             updateMetaTag('meta[property="og:title"]', 'content', post.title);
             updateMetaTag('meta[property="og:description"]', 'content', post.summary);
+            updateMetaTag('meta[property="og:image"]', 'content', postImageUrl); // Use the new image URL
             updateMetaTag('meta[property="twitter:title"]', 'content', post.title);
             updateMetaTag('meta[property="twitter:description"]', 'content', post.summary);
+            updateMetaTag('meta[property="twitter:image"]', 'content', postImageUrl); // Use the new image URL
             const canonicalUrl = `${window.location.origin}${window.location.pathname}?id=${post.id}`;
             updateMetaTag('meta[property="og:url"]', 'content', canonicalUrl);
 
-            // --- 2. GENERATE AND INJECT GOOGLE SCHEMA (FINAL VERSION) ---
+            // --- 2. GENERATE AND INJECT GOOGLE SCHEMA ---
             const ratingValue = (Math.random() * (4.9 - 4.5) + 4.5).toFixed(1);
             const reviewCount = Math.floor(Math.random() * (2000 - 1200 + 1)) + 1200;
             const publishedDate = new Date(post.date).toISOString();
             
-            // This schema structure is final and correct for a blog post with ratings.
             const schema = {
                 "@context": "https://schema.org",
                 "@type": "BlogPosting",
                 "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalUrl },
                 "headline": post.title,
-                "name": post.title, // Added for compatibility as seen in your example
+                "name": post.title,
                 "description": post.summary,
-                "image": "https://visernic.com/wp-content/uploads/2025/03/visernic-1.png",
+                "image": postImageUrl, // Use the new image URL here as well
                 "author": { "@type": "Person", "name": post.author },
                 "publisher": {
                     "@type": "Organization", "name": "My Blog",
                     "logo": { "@type": "ImageObject", "url": "https://i.postimg.cc/L8PPqhKk/v.png" }
                 },
                 "datePublished": publishedDate,
-                "dateModified": publishedDate, // It's good practice to have this
-                // `aggregateRating` is correctly nested inside `BlogPosting`
+                "dateModified": publishedDate,
                 "aggregateRating": {
                     "@type": "AggregateRating",
                     "ratingValue": ratingValue,
-                    "bestRating": "5", // It's good practice to define the best possible rating
+                    "bestRating": "5",
                     "ratingCount": reviewCount
                 }
             };
@@ -93,11 +96,8 @@ async function loadSinglePost() {
             const schemaScript = document.createElement('script');
             schemaScript.type = 'application/ld+json';
             schemaScript.innerHTML = JSON.stringify(schema);
-            // Remove any old schema script before adding a new one
             const oldSchema = document.querySelector('script[type="application/ld+json"]');
-            if(oldSchema) {
-                oldSchema.remove();
-            }
+            if(oldSchema) oldSchema.remove();
             document.head.appendChild(schemaScript);
 
             // --- 3. INJECT POST CONTENT ---
