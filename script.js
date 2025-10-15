@@ -67,7 +67,7 @@ async function loadSinglePost() {
                 "@context": "https://schema.org", "@type": "BlogPosting",
                 "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalUrl },
                 "headline": post.title, "description": post.summary,
-                "image": "https://i.postimg.cc/hjbVtSVH/biddut.png",
+                "image": "https://visernic.com/wp-content/uploads/2025/03/visernic-1.png",
                 "author": { "@type": "Person", "name": post.author },
                 "publisher": {
                     "@type": "Organization", "name": "My Blog",
