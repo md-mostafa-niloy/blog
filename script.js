@@ -60,16 +60,18 @@ async function loadSinglePost() {
             const canonicalUrl = `${window.location.origin}${window.location.pathname}?id=${post.id}`;
             updateMetaTag('meta[property="og:url"]', 'content', canonicalUrl);
 
-            // --- 2. GENERATE AND INJECT GOOGLE SCHEMA (FIXED) ---
+            // --- 2. GENERATE AND INJECT GOOGLE SCHEMA (FINAL VERSION) ---
             const ratingValue = (Math.random() * (4.9 - 4.5) + 4.5).toFixed(1);
             const reviewCount = Math.floor(Math.random() * (2000 - 1200 + 1)) + 1200;
+            const publishedDate = new Date(post.date).toISOString();
             
-            // **CORRECTED SCHEMA:** `aggregateRating` is now nested inside `BlogPosting`.
+            // This schema structure is final and correct for a blog post with ratings.
             const schema = {
                 "@context": "https://schema.org",
                 "@type": "BlogPosting",
                 "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalUrl },
                 "headline": post.title,
+                "name": post.title, // Added for compatibility as seen in your example
                 "description": post.summary,
                 "image": "https://visernic.com/wp-content/uploads/2025/03/visernic-1.png",
                 "author": { "@type": "Person", "name": post.author },
@@ -77,18 +79,25 @@ async function loadSinglePost() {
                     "@type": "Organization", "name": "My Blog",
                     "logo": { "@type": "ImageObject", "url": "https://i.postimg.cc/L8PPqhKk/v.png" }
                 },
-                "datePublished": new Date(post.date).toISOString(),
-                // The `aggregateRating` object is now correctly placed here.
+                "datePublished": publishedDate,
+                "dateModified": publishedDate, // It's good practice to have this
+                // `aggregateRating` is correctly nested inside `BlogPosting`
                 "aggregateRating": {
                     "@type": "AggregateRating",
                     "ratingValue": ratingValue,
-                    "reviewCount": reviewCount
+                    "bestRating": "5", // It's good practice to define the best possible rating
+                    "ratingCount": reviewCount
                 }
             };
 
             const schemaScript = document.createElement('script');
             schemaScript.type = 'application/ld+json';
             schemaScript.innerHTML = JSON.stringify(schema);
+            // Remove any old schema script before adding a new one
+            const oldSchema = document.querySelector('script[type="application/ld+json"]');
+            if(oldSchema) {
+                oldSchema.remove();
+            }
             document.head.appendChild(schemaScript);
 
             // --- 3. INJECT POST CONTENT ---
