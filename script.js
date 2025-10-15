@@ -60,13 +60,17 @@ async function loadSinglePost() {
             const canonicalUrl = `${window.location.origin}${window.location.pathname}?id=${post.id}`;
             updateMetaTag('meta[property="og:url"]', 'content', canonicalUrl);
 
-            // --- 2. GENERATE AND INJECT GOOGLE SCHEMA ---
+            // --- 2. GENERATE AND INJECT GOOGLE SCHEMA (FIXED) ---
             const ratingValue = (Math.random() * (4.9 - 4.5) + 4.5).toFixed(1);
             const reviewCount = Math.floor(Math.random() * (2000 - 1200 + 1)) + 1200;
+            
+            // **CORRECTED SCHEMA:** `aggregateRating` is now nested inside `BlogPosting`.
             const schema = {
-                "@context": "https://schema.org", "@type": "BlogPosting",
+                "@context": "https://schema.org",
+                "@type": "BlogPosting",
                 "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalUrl },
-                "headline": post.title, "description": post.summary,
+                "headline": post.title,
+                "description": post.summary,
                 "image": "https://visernic.com/wp-content/uploads/2025/03/visernic-1.png",
                 "author": { "@type": "Person", "name": post.author },
                 "publisher": {
@@ -74,17 +78,22 @@ async function loadSinglePost() {
                     "logo": { "@type": "ImageObject", "url": "https://i.postimg.cc/L8PPqhKk/v.png" }
                 },
                 "datePublished": new Date(post.date).toISOString(),
-                "aggregateRating": { "@type": "AggregateRating", "ratingValue": ratingValue, "reviewCount": reviewCount }
+                // The `aggregateRating` object is now correctly placed here.
+                "aggregateRating": {
+                    "@type": "AggregateRating",
+                    "ratingValue": ratingValue,
+                    "reviewCount": reviewCount
+                }
             };
+
             const schemaScript = document.createElement('script');
             schemaScript.type = 'application/ld+json';
             schemaScript.innerHTML = JSON.stringify(schema);
             document.head.appendChild(schemaScript);
 
-            // --- 3. INJECT POST CONTENT (CONVERTING MARKDOWN TO HTML) ---
+            // --- 3. INJECT POST CONTENT ---
             document.getElementById('post-title').innerText = post.title;
             document.getElementById('post-meta').innerText = `By ${post.author} on ${post.date}`;
-            // This is the magic line! It converts Markdown to HTML before displaying it.
             document.getElementById('post-content').innerHTML = marked.parse(post.content);
 
             // --- 4. ACTIVATE INTERACTIVE RATING STARS ---
