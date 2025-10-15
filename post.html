@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/L8PPqhKk/v.png">
+
+    <title>Loading Blog Post...</title>
+    <meta name="description" content="A post from my blog.">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Blog Post">
+    <meta property="og:description" content="A post from my blog.">
+    <meta property="og:image" content="https://visernic.com/wp-content/uploads/2025/03/visernic-1.png">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Blog Post">
+    <meta property="twitter:description" content="A post from my blog.">
+    <meta property="twitter:image" content="https://visernic.com/wp-content/uploads/2025/03/visernic-1.png">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="back-to-home">← Back to All Posts</a>
+        <h1 id="post-title"></h1>
+        <p id="post-meta"></p>
+    </header>
+
+    <main>
+        <article id="post-content">
+            </article>
+
+        <div class="rating-section">
+            <h3>Rate this post:</h3>
+            <div class="stars" id="rating-stars">
+                <span class="star" data-value="1">☆</span>
+                <span class="star" data-value="2">☆</span>
+                <span class="star" data-value="3">☆</span>
+                <span class="star" data-value="4">☆</span>
+                <span class="star" data-value="5">☆</span>
+            </div>
+            <p id="rating-message" class="rating-message"></p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 MD Mostafa Niloy. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
